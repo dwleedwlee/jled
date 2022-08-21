@@ -136,7 +136,7 @@ jled_t *JLED_Forever(jled_t *led) {
 }
 
 bool JLED_IsForever(jled_t *led) {
-  return led->numRepetitions = kRepeatForever;
+  return led->numRepetitions == kRepeatForever;
 }
 
 // Set amount of time to initially wait before effect starts. Time is
