@@ -42,14 +42,16 @@ uint32_t HAL_Ticks(void) {
   return millis();
 }
 
-void HalPwm_Init(const _HalPwm_t *hal, halPwmRes_t idx) {
-  hal = &(tableLedHal[idx]);
+const _HalPwm_t *const HalPwm_Init(halPwmRes_t idx) {
+  const _HalPwm_t *hal = &(tableLedHal[idx]);
+  pinMode(hal->pin, OUTPUT);
+  return hal;
 }
 
-const _HalPwm_t *HalPwm_GetStaticFromIndex(halPwmRes_t idx) {
+const _HalPwm_t *const HalPwm_GetStaticFromIndex(halPwmRes_t idx) {
   return &(tableLedHal[idx]);
 }
 
-void HalPwm_AnalogWrite(const _HalPwm_t *hal, uint8_t val) {
+void HalPwm_AnalogWrite(const _HalPwm_t *const hal, uint8_t val) {
   hal->pwmWrite(hal->pin, val << kBrightnessShiftFactor);
 }

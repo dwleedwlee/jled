@@ -45,9 +45,9 @@ typedef struct _HalPwm{
 }_HalPwm_t;
 
 uint32_t HAL_Ticks(void);
-void HalPwm_Init(const _HalPwm_t *hal, halPwmRes_t idx);
-const _HalPwm_t *HalPwm_GetStaticFromIndex(halPwmRes_t idx);
-void HalPwm_AnalogWrite(const _HalPwm_t *hal, uint8_t val);
+const _HalPwm_t *const HalPwm_Init(halPwmRes_t idx);
+const _HalPwm_t *const HalPwm_GetStaticFromIndex(halPwmRes_t idx);
+void HalPwm_AnalogWrite(const _HalPwm_t *const hal, uint8_t val);
 
 #ifdef __cplusplus
 }
