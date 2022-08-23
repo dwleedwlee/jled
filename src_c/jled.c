@@ -30,6 +30,11 @@ static const uint32_t kTimeUndef = -1;
 
 static jled_t tableJled[JLED_RES_MAX];
 
+// scale a byte by a factor, where only the lower 5 bits of factor are used.
+// i.e.  the scaling factor is in the range [0,31]. scale5 has the following
+// properties:
+//   scale5(x, f) = x*f / 32  for all x and f=0..30
+//   scale5(x, 31) = x  for all x
 static uint8_t scale5(uint8_t val, uint8_t factor) {
   if (factor == 31)
     return val; // optimize for most common case (full brightness)
@@ -186,15 +191,7 @@ uint8_t JLED_GetMaxBrightness(jled_t *led) {
 }
 
 
-// update brightness of LED using the given brightness evaluator
-//  (brightness)                       ________________
-// on 255 |                         ¸-'
-//        |                      ¸-'
-//        |                   ¸-'
-// off 0  |________________¸-'
-//        |<-delay before->|<--period-->|<-delay after-> (time)
-//                         | func(t)    |
-//                         |<- num_repetitions times  ->
+
 bool JLED_UpdateL(jled_t *led, uint32_t now) {
   if(led->state == JLED_ST_STOPPED || !(led->brightnessEval)) return false;
   

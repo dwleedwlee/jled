@@ -43,10 +43,10 @@ extern const uint8_t kZeroBrightness;
 // the LED.
 typedef struct BrightnessEvaluator brightnessEvaluator_t;
 
-typedef struct BrightnessEvaluator {
+struct BrightnessEvaluator {
   uint16_t (*period)(brightnessEvaluator_t *);
   uint8_t (*eval)(brightnessEvaluator_t *, uint32_t);
-} brightnessEvaluator_t;
+};
 
 /* Concrete objects */
 typedef struct ConstantBrightnessEvaluator {
