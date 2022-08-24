@@ -191,7 +191,15 @@ uint8_t JLED_GetMaxBrightness(jled_t *led) {
 }
 
 
-
+// update brightness of LED using the given brightness evaluator
+//  (brightness)                       ________________
+// on 255 |                         ¸-'
+//        |                      ¸-'
+//        |                   ¸-'
+// off 0  |________________¸-'
+//        |<-delay before->|<--period-->|<-delay after-> (time)
+//                         | func(t)    |
+//                         |<- num_repetitions times  ->
 bool JLED_UpdateL(jled_t *led, uint32_t now) {
   if(led->state == JLED_ST_STOPPED || !(led->brightnessEval)) return false;
   
